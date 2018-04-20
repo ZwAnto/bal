@@ -1,0 +1,31 @@
+#navbar{
+    position: absolute;
+    height: 3.1em;
+    width: -webkit-fill-available;
+    background-color: #ffffff80;
+    z-index: 1;
+    margin: 1em;
+    border-radius: 2px;
+    border: 1px solid #80808036;
+}
+#navbar input{
+   width: -webkit-fill-available;
+    height: 2.2em;
+    margin: 0.4em;
+    background-color: #e9ecef;
+    border: none;
+    border-radius: 2px;
+    padding: 0 0.8em;
+    color: grey;
+    box-shadow: inset 0px 0px 2px #818182;
+    opacity:0.5;
+}
+#navbar input::placeholder {
+    color: grey;
+}
+#navbar input:active,
+#navbar input:focus{
+   outline:none;
+  box-shadow: inset 0px 0px 2px #818182;
+  opacity: 1;
+}

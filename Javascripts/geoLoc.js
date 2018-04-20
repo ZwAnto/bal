@@ -1,29 +1,34 @@
+
 function geo_sucess(position) {
 
-    var geocoder = new google.maps.Geocoder;
-
     var geoLoc = position.coords;
-    var latlng = {lat: geoLoc.latitude, lng: geoLoc.longitude};
+    latlngOrigin = {lat: geoLoc.latitude, lng: geoLoc.longitude};
+    map.setView(latlngOrigin);
+    map.setZoom(16);
 
-    geocoder.geocode({'location': latlng}, function (results, status) {
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({'location': latlngOrigin}, function (results, status) {
+        var popupText = latlngOrigin[0] + ',' + latlngOrigin[1];
         if (status === 'OK') {
-            if (results[1]) {
-                
-                map.setView(latlng);
-
-                var marker = L.marker(latlng).bindPopup(results[0].formatted_address);
-                marker.addTo(map);
-                
-                getBal();
+            if (results[0]) {
+                var popupText = results[0].formatted_address;
             } else {
-                window.alert('No results found');
+                alert('No results found');
             }
         } else {
-            window.alert('Geocoder failed due to: ' + status);
+            alert('Geocoder failed due to: ' + status);
         }
+        $('#inputAddress').val(popupText);
+
+
+        markers.clearLayers();
+        var marker = L.marker(latlngOrigin);
+        marker.addTo(markers);
+
+        getBal();
+
     });
 }
-
 function geo_error(err) {
     if (err.code == 1) {
         alert('Permission denied');
@@ -32,21 +37,39 @@ function geo_error(err) {
         alert('Position unavailable');
     }
     if (err.code == 3) {
-        navigator.geolocation.getCurrentPosition(geo_sucess, geo_error, {enableHighAccuracy: false, timeout: 50000});
+        alert('Position unavailable');
+    }
+}
+function getLoc() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(geo_sucess, geo_error, {enableHighAccuracy: true, timeout: 5000});
     }
 }
 
-function getLoc(){
-     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(geo_sucess, geo_error, {enableHighAccuracy: true, timeout: 50000});
-    }
+function geo_code(address) {
+
+
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({'address': address}, function (results, status) {
+        if (status == 'OK') {
+
+            var geoLoc = {latitude: results[0].geometry.location.lat(), longitude: results[0].geometry.location.lng()};
+
+            latlngOrigin = {lat: geoLoc.latitude, lng: geoLoc.longitude};
+            map.setView(latlngOrigin);
+            map.setZoom(16);
+
+            markers.clearLayers();
+            var marker = L.marker(latlngOrigin);
+            marker.addTo(markers);
+
+            getBal();
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+
 }
-   
 
 
 
-
-
-[[48.996888575095596, 2.5011062622070317],[48.78040136289704, 2.5011062622070317],[48.78040136289704, 2.132377624511719],[48.78040136289704, 2.132377624511719]]
-
-((48.996888575095596,2.5011062622070317),(48.78040136289704,2.5011062622070317),(48.78040136289704,2.132377624511719),(48.78040136289704,2.132377624511719))

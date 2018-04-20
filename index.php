@@ -36,7 +36,7 @@ if ($_SERVER['HTTPS'] != 'on') {
         <link rel='stylesheet' href='Stylesheet/main.css'>
 
         <!-- jQuery first, then Tether, then Bootstrap JS. -->
-        <script src='https://code.jquery.com/jquery-3.2.1.js' crossorigin='anonymous'></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.js'></script>
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js'></script>
 
@@ -55,17 +55,23 @@ if ($_SERVER['HTTPS'] != 'on') {
         <script defer src='https://zwanto.org/lincoln/Libs/elasticsearch-js/elasticsearch.js'></script>-->
 
         <!-- Custom JS -->
-        
+        <script src='Javascripts/main.js' ></script>
     </head>
     <body>
+        <div id='navbar'>
+            <form onsubmit="geo_code($('#inputAddress').val());">    
+            <input id="inputAddress" aria-describedby="emailHelp" placeholder="Enter email">
+            </form>
+        </div>
         <div id="map"></div>
-        
+
         <script src='Javascripts/map.js' ></script>
         <script src='Javascripts/bal.js' ></script>
         <script src='Javascripts/geoLoc.js' ></script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyyenDy9BWC_IFOJJlXQHg0DObmPf9b0&callback=getLoc">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjYg1Z62MsM9AwLKyz2YNoZZvf0E3kkvc&callback=getLoc">
         </script>
+      
     </body>
 </html>
 
