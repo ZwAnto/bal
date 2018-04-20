@@ -70,6 +70,13 @@ function geo_code(address) {
     });
 
 }
+$('#inputAddress').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+       geo_code($('#inputAddress').val());
+    }
+});
+
 
 
 

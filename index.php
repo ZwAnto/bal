@@ -59,17 +59,20 @@ if ($_SERVER['HTTPS'] != 'on') {
     </head>
     <body>
         <div id='navbar'>
-            <form onsubmit="geo_code($('#inputAddress').val());">    
+    
             <input id="inputAddress" aria-describedby="emailHelp" placeholder="Enter email">
-            </form>
+           
         </div>
         <div id="map"></div>
 
         <script src='Javascripts/map.js' ></script>
         <script src='Javascripts/bal.js' ></script>
         <script src='Javascripts/geoLoc.js' ></script>
+          <!-- AIzaSyBFyyenDy9BWC_IFOJJlXQHg0DObmPf9b0 -->
+                <!-- AIzaSyAjYg1Z62MsM9AwLKyz2YNoZZvf0E3kkvc -->
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjYg1Z62MsM9AwLKyz2YNoZZvf0E3kkvc&callback=getLoc">
+              
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyyenDy9BWC_IFOJJlXQHg0DObmPf9b0&callback=getLoc">
         </script>
       
     </body>

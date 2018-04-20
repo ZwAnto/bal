@@ -42,7 +42,7 @@ function getBal() {
 
     var geofilter = '(' + lat1 + ',' + lng1 + '),(' + lat2 + ',' + lng1 + '),(' + lat2 + ',' + lng2 + '),(' + lat1 + ',' + lng2 + ')';
     var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.polygon=' + geofilter;
-    var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.distance=' + latlngOrigin.lat + ',' + latlngOrigin.lng + ',5000';
+    var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.distance=' + latlngOrigin.lat + ',' + latlngOrigin.lng + ',500';
    
     console.log(api);
 
@@ -52,7 +52,7 @@ function getBal() {
 
         var n = json.nhits;
 
-        for (i = 0; i < Math.min(json.records.length,10); i++) {
+        for (i = 0; i < json.records.length; i++) {
             addMarker(i, json, icon, markers, service);
         }
     });
