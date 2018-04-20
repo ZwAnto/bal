@@ -8,13 +8,10 @@ function geo_sucess(position) {
     geocoder.geocode({'location': latlng}, function (results, status) {
         if (status === 'OK') {
             if (results[1]) {
-                console.log(results);
-                console.log(results[1]);
                 
                 map.setView(latlng);
-                map.setMaxBounds(map.getBounds());
 
-                var marker = L.marker(latlng).bindPopup(results[1].formatted_address);
+                var marker = L.marker(latlng).bindPopup(results[0].formatted_address);
                 marker.addTo(map);
                 
                 getBal();
