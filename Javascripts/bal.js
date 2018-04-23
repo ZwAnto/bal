@@ -1,6 +1,7 @@
-function addMarker(i, json, icon, layer, service) {
-    var latlng = json.records[i].fields.latlong;
-    
+function addMarker(i, n, record, icon, layer, service) {
+
+    var latlng = record.fields.latlong;
+
     var destination = [{lat: latlng[0], lng: latlng[1]}];
     service.getDistanceMatrix({
         origins: [latlngOrigin],
@@ -11,11 +12,11 @@ function addMarker(i, json, icon, layer, service) {
         avoidTolls: false
     }, function (response, status) {
 
-        var address = json.records[i].fields.va_no_voie + ' ' + json.records[i].fields.lb_voie_ext + '<br>' + json.records[i].fields.co_postal + '<br>' + json.records[i].fields.lb_com + '<br>';
-        var latlng = json.records[i].fields.latlong;
+        var address = record.fields.va_no_voie + ' ' + record.fields.lb_voie_ext + '<br>' + record.fields.co_postal + '<br>' + record.fields.lb_com + '<br>';
+        var latlng = record.fields.latlong;
 
         if (status !== 'OK') {
-            alert('Error was: ' + status);
+            //alert('Error was: ' + status);
         } else {
             address += '<br>' + response.rows[0].elements[0].distance.text;
             address += '<br>' + response.rows[0].elements[0].duration.text;
@@ -23,7 +24,14 @@ function addMarker(i, json, icon, layer, service) {
         //var marker = L.marker(latlng, {icon: icon}).bindPopup(address);
         var marker = L.circleMarker(latlng, {radius: 8, stroke: true, weight: 1, color: '#fecb00'}).bindPopup(address);
         marker.addTo(layer);
+
+        if (i === n - 1) {
+            map.fitBounds(markers.getBounds());
+        }
     });
+
+
+
 }
 var icon = L.divIcon({
     icon: '',
@@ -32,7 +40,7 @@ var icon = L.divIcon({
     popupAnchor: [-4, -30],
     html: '<i class="fas fa-map-marker"></i>'
 });
-function getBal() {
+function getBal(dist) {
     var bounds = map.getBounds();
 
     var lat1 = bounds._northEast.lat;
@@ -41,9 +49,9 @@ function getBal() {
     var lng2 = bounds._southWest.lng;
 
     var geofilter = '(' + lat1 + ',' + lng1 + '),(' + lat2 + ',' + lng1 + '),(' + lat2 + ',' + lng2 + '),(' + lat1 + ',' + lng2 + ')';
-    var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.polygon=' + geofilter;
-    var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.distance=' + latlngOrigin.lat + ',' + latlngOrigin.lng + ',500';
-   
+    //var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=100&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.polygon=' + geofilter;
+    var api = 'https://datanova.laposte.fr/api/records/1.0/search/?dataset=laposte_boiterue&rows=1000&facet=lb_voie_ext&facet=lb_com&facet=co_postal&geofilter.distance=' + latlngOrigin.lat + ',' + latlngOrigin.lng + ',' + dist;
+
     console.log(api);
 
     var service = new google.maps.DistanceMatrixService;
@@ -52,8 +60,21 @@ function getBal() {
 
         var n = json.nhits;
 
-        for (i = 0; i < json.records.length; i++) {
-            addMarker(i, json, icon, markers, service);
+        if (n < 10 && map.getZoom() !== map.getMinZoom()) {
+            rayon += 200;
+            getBal(rayon);
+        } else if (n > 100 && map.getZoom() !== map.getMaxZoom()) {
+            rayon -= 200;
+            getBal(rayon);
+
+        } else {
+            data = json;
+
+            console.log(json);
+
+            for (i = 0; i < json.records.length; i++) {
+                addMarker(i, n, json.records[i], icon, markers, service);
+            }
         }
     });
 }

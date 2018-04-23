@@ -2,30 +2,47 @@
     position: absolute;
     height: 3.1em;
     width: -webkit-fill-available;
-    background-color: #ffffff80;
     z-index: 1;
-    margin: 1em;
-    border-radius: 2px;
-    border: 1px solid #80808036;
+    top:0;
+}
+#navbar > div{
+    width: calc(100% - 2.4em);
+    height: 2.2em;
+    margin: 0.4em 1.2em;
+    background-color: inherit;
+    text-align:center;
 }
 #navbar input{
    width: -webkit-fill-available;
     height: 2.2em;
-    margin: 0.4em;
-    background-color: #e9ecef;
+    background-color: inherit;
     border: none;
-    border-radius: 2px;
-    padding: 0 0.8em;
-    color: grey;
-    box-shadow: inset 0px 0px 2px #818182;
-    opacity:0.5;
+    color: white;
+    border-bottom: 1px solid white;
 }
 #navbar input::placeholder {
-    color: grey;
+    color: white;
 }
 #navbar input:active,
 #navbar input:focus{
    outline:none;
-  box-shadow: inset 0px 0px 2px #818182;
-  opacity: 1;
+}
+#navbar input:before {
+    content: '';
+    border-bottom: 2px solid orange;
+}
+#navbar >div >div{
+    margin-left: calc(50% - 2.2em);
+    position: absolute;
+    border: none;
+    margin-top: -2px;
+    width: 0;
+    transition: margin-left 0.5s ease,width 0.5s ease;
+}
+
+#navbar > div > input:focus + div,
+#navbar > div > input:active + div {
+    width: inherit;
+    margin-left: 0;
+    border: 1px solid orange;
 }

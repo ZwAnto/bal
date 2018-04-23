@@ -14,7 +14,7 @@ if ($_SERVER['HTTPS'] != 'on') {
         <!-- meta tags -->
         <meta charset="UTF-8">
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-        <meta name="theme-color" content="#e71e62">       
+        <meta name="theme-color" content="#ffa500">       
 
         <!-- Font from lincoln.fr -->
         <style type='text/css'>
@@ -58,10 +58,11 @@ if ($_SERVER['HTTPS'] != 'on') {
         <script src='Javascripts/main.js' ></script>
     </head>
     <body>
-        <div id='navbar'>
-    
-            <input id="inputAddress" aria-describedby="emailHelp" placeholder="Enter email">
-           
+        <div id='navbar' class='col-xs-12 col-sm-12 col-md-6 col-lg-3'>
+            <div>
+            <input id="inputAddress" aria-describedby="emailHelp" placeholder="Enter address">
+            <div></div>
+            </div>
         </div>
         <div id="map"></div>
 
@@ -70,11 +71,8 @@ if ($_SERVER['HTTPS'] != 'on') {
         <script src='Javascripts/geoLoc.js' ></script>
           <!-- AIzaSyBFyyenDy9BWC_IFOJJlXQHg0DObmPf9b0 -->
                 <!-- AIzaSyAjYg1Z62MsM9AwLKyz2YNoZZvf0E3kkvc -->
-        <script async defer
-              
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyyenDy9BWC_IFOJJlXQHg0DObmPf9b0&callback=getLoc">
-        </script>
-      
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjYg1Z62MsM9AwLKyz2YNoZZvf0E3kkvc&callback=mapInit"></script>
+
     </body>
 </html>
 

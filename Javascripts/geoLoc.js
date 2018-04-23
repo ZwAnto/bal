@@ -1,10 +1,10 @@
 
 function geo_sucess(position) {
-
+  
     var geoLoc = position.coords;
     latlngOrigin = {lat: geoLoc.latitude, lng: geoLoc.longitude};
     map.setView(latlngOrigin);
-    map.setZoom(16);
+
 
     var geocoder = new google.maps.Geocoder;
     geocoder.geocode({'location': latlngOrigin}, function (results, status) {
@@ -25,7 +25,8 @@ function geo_sucess(position) {
         var marker = L.marker(latlngOrigin);
         marker.addTo(markers);
 
-        getBal();
+        rayon = 100;
+        getBal(rayon);
 
     });
 }
@@ -40,6 +41,7 @@ function geo_error(err) {
         alert('Position unavailable');
     }
 }
+
 function getLoc() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(geo_sucess, geo_error, {enableHighAccuracy: true, timeout: 5000});
@@ -47,23 +49,21 @@ function getLoc() {
 }
 
 function geo_code(address) {
-
-
     var geocoder = new google.maps.Geocoder;
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == 'OK') {
 
             var geoLoc = {latitude: results[0].geometry.location.lat(), longitude: results[0].geometry.location.lng()};
-
             latlngOrigin = {lat: geoLoc.latitude, lng: geoLoc.longitude};
             map.setView(latlngOrigin);
-            map.setZoom(16);
-
+ 
+    
             markers.clearLayers();
             var marker = L.marker(latlngOrigin);
             marker.addTo(markers);
 
-            getBal();
+            rayon = 100;
+            getBal(rayon);
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
