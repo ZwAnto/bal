@@ -4,6 +4,8 @@
     width: -webkit-fill-available;
     z-index: 1;
     top:0;
+    padding: 0;
+
 }
 #navbar > div{
     width: calc(100% - 2.4em);
