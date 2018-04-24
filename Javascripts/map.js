@@ -1,8 +1,12 @@
-map = L.map('map').setView([47,2], 12);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
-map.setZoom(10);
+function mapInit(){
+    map = L.map('map');
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png').addTo(map);
+    map.setZoom(16);
 
-map.zoomControl.setPosition('bottomleft');
+    map.zoomControl.setPosition('bottomleft');
 
-markers = L.layerGroup();
-markers.addTo(map);
+    markers = L.featureGroup();
+    markers.addTo(map);
+    
+    getLoc();
+}
